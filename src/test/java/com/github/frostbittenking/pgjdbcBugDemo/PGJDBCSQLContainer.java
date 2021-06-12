@@ -6,6 +6,8 @@ import org.testcontainers.utility.DockerImageName;
 
 public class PGJDBCSQLContainer extends PostgreSQLContainer {
 
+    public static final String NAME = "pgsql";
+
     public PGJDBCSQLContainer(DockerImageName dockerImageName) {
         super(dockerImageName);
     }
@@ -13,6 +15,7 @@ public class PGJDBCSQLContainer extends PostgreSQLContainer {
     public PGJDBCSQLContainer(String dockerImageName) {
         super(dockerImageName);
     }
+
 
     @Override
     public String getDriverClassName() {
@@ -24,5 +27,12 @@ public class PGJDBCSQLContainer extends PostgreSQLContainer {
         String additionalUrlParams = constructUrlParameters("?", "&");
         return "jdbc:pgsql://" + getContainerIpAddress() + ":" + getMappedPort(POSTGRESQL_PORT)
                 + "/" + getDatabaseName() + additionalUrlParams;
+    }
+
+    @Override
+    protected void configure() {
+        addEnv("POSTGRES_DB", getDatabaseName());
+        addEnv("POSTGRES_USER", getUsername());
+        addEnv("POSTGRES_PASSWORD", getPassword());
     }
 }

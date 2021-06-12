@@ -18,10 +18,18 @@ public class DemoPgJdbcLobBugIT extends AbstractIntegrationTest {
     @Test
     public void testPgjdbcWriteAndReadLobEntity_shouldNotThrowException() throws Exception {
         final LobTestTable lobTestTable = new LobTestTable();
-        lobTestTable.setTestData(new byte[]{'a', 'b', 'c', 'd', 'e'});
+        final byte[] testData = new byte[]{'a', 'b', 'c', 'd', 'e'};
+        lobTestTable.setTestData(testData);
 
         LobTestTable result = transactionTemplate.execute(status -> repository.save(lobTestTable));
         Assertions.assertThat(result.getId()).isNotNull();
         Assertions.assertThatNoException().isThrownBy(() -> repository.findById(result.getId()));
+
+        transactionTemplate.execute(status -> {
+            final LobTestTable readBack = repository.getOne(result.getId());
+            Assertions.assertThat(readBack.getTestData()).isEqualTo(testData);
+            return null;
+        });
+
     }
 }

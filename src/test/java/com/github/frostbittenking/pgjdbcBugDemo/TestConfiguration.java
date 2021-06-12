@@ -13,6 +13,5 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @EntityScan(basePackageClasses = EntityBasePackage.class)
 @Configuration
 @EnableJpaRepositories(basePackageClasses = DemoJpaModule.class)
-
 public class TestConfiguration {
 }
