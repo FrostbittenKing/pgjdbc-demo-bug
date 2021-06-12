@@ -1,5 +1,5 @@
 # pgjdbc-demo-bug
-Demo repo to demonstrate pgjdbc bug
+Demo repo to demonstrate pgjdbc bug <https://github.com/impossibl/pgjdbc-ng/issues/550>
 
 ## Bug demonstration
 
