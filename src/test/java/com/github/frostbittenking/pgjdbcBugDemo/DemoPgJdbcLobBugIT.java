@@ -24,14 +24,12 @@ public class DemoPgJdbcLobBugIT extends AbstractIntegrationTest {
                 .build();
 
         LobTestTable result = transactionTemplate.execute(status -> repository.save(lobTestTable));
-        Assertions.assertThat(result.getId()).isNotNull();
-        Assertions.assertThatNoException().isThrownBy(() -> repository.findById(result.getId()));
 
+        Assertions.assertThat(result.getId()).isNotNull();
         transactionTemplate.execute(status -> {
             final LobTestTable readBack = repository.getOne(result.getId());
             Assertions.assertThat(readBack.getTestData()).isEqualTo(testData);
             return null;
         });
-
     }
 }

@@ -178,6 +178,10 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <executions>
                             <execution>
+                                <configuration>
+                                    <testFailureIgnore>true</testFailureIgnore>
+                                    <trimStackTrace>false</trimStackTrace>
+                                </configuration>
                                 <goals>
                                     <goal>integration-test</goal>
                                     <goal>verify</goal>
